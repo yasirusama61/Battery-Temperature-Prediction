@@ -18,25 +18,50 @@ The data was collected using an LG 18650HG2 battery cell, tested in a thermal ch
 
 ### Summary Statistics of Data
 
-| Metric           | Voltage [V]   | Current [A]  | Temperature [°C]  | Capacity [Ah] | WhAccu [Wh] |
-|------------------|---------------|--------------|--------------------|---------------|-------------|
-| **Count**        | 5,423,272     | 5,423,272    | 5,423,272         | 5,423,272     | 5,423,272   |
-| **Mean**         | 351.87        | 3.91         | 8.35              | 0.11          | 0.55        |
-| **Std Dev**      | 799.02        | 0.36         | 16.68             | 1.30          | 4.99        |
-| **Min**          | 1.00          | 2.26         | -22.50            | -2.78         | -10.30      |
-| **25th Percentile** | 9.00      | 3.67         | -9.68             | -0.58         | -2.20       |
-| **Median**       | 24.00         | 4.15         | 9.16              | 0.01          | 0.05        |
-| **75th Percentile** | 44.00     | 4.19         | 23.83             | 0.94          | 3.69        |
-| **Max**          | 6,667.00      | 4.20         | 41.33             | 2.82          | 10.95       |
+Below is a summary of the main variables in the dataset, including key statistical indicators (mean, standard deviation, min, max, and quartiles):
 
-### Observations:
-- **Voltage**: Mean voltage is significantly high, with a wide range from 1V to over 6,667V, indicating potential high-voltage charge cycles.
-- **Current**: Current values are consistent, with a mean of around 3.91A and a narrow spread, suggesting controlled discharge/charge cycles.
-- **Temperature**: Temperature ranges from -22.5°C to 41.33°C, reflecting testing under a wide range of ambient conditions.
-- **Capacity & Accumulated Energy (WhAccu)**: The data includes negative values for Capacity and WhAccu, likely due to discharge cycles, with a maximum capacity observed at 2.82Ah.
+| Statistic      | Step         | Voltage [V] | Current [A] | Temperature [C] | Capacity [Ah] | WhAccu [Wh] |
+|----------------|--------------|-------------|-------------|-----------------|---------------|-------------|
+| **Count**      | 5,423,272    | 5,423,272   | 5,423,272   | 5,423,272       | 5,423,272     | 5,423,272   |
+| **Mean**       | 351.87       | 3.912       | 8.52e-3     | 8.35            | 0.1139        | 0.5481      |
+| **Std**        | 799.02       | 0.3629      | 1.0469      | 16.6851         | 1.3026        | 4.9892      |
+| **Min**        | 1            | 2.262       | -1.8001     | -22.5039        | -2.7807       | -10.3028    |
+| **25%**        | 9            | 3.665       | -0.0407     | -9.6814         | -0.5800       | -2.1959     |
+| **50%**        | 24           | 4.151       | 0.0         | 9.1625          | 0.0105        | 0.0457      |
+| **75%**        | 44           | 4.187       | 0.0         | 23.8307         | 0.9399        | 3.6855      |
+| **Max**        | 6,667        | 4.202       | 5.9993      | 41.3273         | 2.8180        | 10.9525     |
 
-This summary provides a snapshot of the battery's operating conditions across various cycles. The broad ranges in voltage and temperature underscore the testing's diversity, which will support a robust temperature prediction model.
+### Observations and Analysis
 
+1. **Voltage**:
+   - The voltage has a mean of around 3.91 V, which is typical for an LG 18650 battery under operation.
+   - The minimum voltage recorded is 2.26 V, likely representing near-discharged conditions, while the maximum of 4.20 V aligns with a fully charged state.
+   - Standard deviation is low, indicating voltage remains relatively stable during most of the cycle.
+
+2. **Current**:
+   - The mean current is near zero (0.0085 A), which suggests the dataset contains balanced charge and discharge cycles.
+   - A wide range of current values, from -1.80 A (indicating discharge) to 5.99 A (indicating charge), shows various testing conditions. Negative values denote discharge events.
+   - The relatively higher standard deviation of 1.05 A signifies that current changes frequently, possibly due to dynamic drive cycles or charge/discharge tests.
+
+3. **Temperature**:
+   - Temperature has a broad range from -22.50 °C to 41.32 °C, indicating testing under various ambient conditions.
+   - The mean temperature (8.35 °C) and high standard deviation (16.68 °C) suggest temperature fluctuations due to different test conditions, including extreme high and low-temperature tests.
+   - The presence of very low temperatures (below freezing) could imply cold weather performance tests.
+
+4. **Capacity (Ah)**:
+   - The mean capacity is 0.1139 Ah, which might reflect intermittent data capture across charge and discharge cycles.
+   - A negative minimum value for capacity (-2.78 Ah) is unusual, possibly due to data handling or measurement anomalies that will need addressing.
+   - The maximum capacity (2.81 Ah) aligns with the expected capacity of a fully charged 3Ah LG 18650 cell, suggesting full discharge cycles were included.
+
+5. **Accumulated Energy (WhAccu)**:
+   - The mean accumulated energy is 0.548 Wh, with a range spanning -10.30 Wh to 10.95 Wh.
+   - Negative values might correspond to discharge cycles, where energy is drawn from the battery.
+   - The range and standard deviation indicate varied usage scenarios, which could enhance the robustness of a predictive model by covering multiple operational conditions.
+
+### Insights for Modeling
+- The broad ranges and fluctuations in temperature, current, and capacity are beneficial for developing a robust temperature prediction model as they cover a wide range of realistic battery conditions.
+- Handling negative values in capacity and accumulated energy may require preprocessing, as these could be anomalies or represent specific states in the cycle.
+- Since the data includes both high and low temperatures, it may be useful to segment or engineer features for extreme conditions to improve model performance.
 
 ### Project-Specific Data Processing
 The data includes the following fields:
