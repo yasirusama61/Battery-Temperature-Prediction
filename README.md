@@ -212,6 +212,10 @@ Upon evaluation on the test dataset, the model achieved the following metrics:
 - **Test Root Mean Squared Error (RMSE)**: 0.0016
 - **R-squared (R²)**: 0.99997
 
+The **Root Mean Squared Error (RMSE)** of the model is 0.0016, which represents the average deviation of the predicted temperature from the actual temperature in degrees Celsius. In practical terms, this RMSE value means that, on average, the predicted temperatures are only **0.0016°C** away from the actual values.
+
+This extremely low RMSE indicates that the model's predictions are very close to the actual measurements, with a difference so small that it's almost negligible. Such a precise alignment (a fraction of a degree away) demonstrates that the model effectively captures the underlying temperature patterns and can be highly reliable for real-world applications where minimal error is crucial.
+
 These metrics indicate that the model performs exceptionally well in predicting temperature values, with an extremely low error margin and an R-squared value close to 1, demonstrating near-perfect alignment between predicted and actual values. This impressive performance may be attributed to the comprehensive feature engineering (such as rolling averages and interaction terms), which enables the model to capture nuanced relationships within the battery parameters.
 
 ## Actual vs Predicted Temperature
