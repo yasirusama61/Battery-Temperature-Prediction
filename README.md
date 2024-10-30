@@ -89,3 +89,21 @@ The data includes the following fields:
    ```bash
    git clone https://github.com/yasirusama61/Battery-Temperature-Prediction.git
    cd Battery-Temperature-Prediction
+
+## Installation and Usage
+
+### Install dependencies:
+```bash
+pip install -r requirements.txt
+
+### Run the data extraction and processing script:
+```bash
+python src/data_processing.py
+
+### Train the model (example command):
+```bash
+python src/train_model.py
+
+### Launch the dashboard for real-time monitoring (optional):
+```bash
+python src/dashboard.py
