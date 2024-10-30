@@ -213,3 +213,13 @@ Upon evaluation on the test dataset, the model achieved the following metrics:
 - **R-squared (R²)**: 0.99997
 
 These metrics indicate that the model performs exceptionally well in predicting temperature values, with an extremely low error margin and an R-squared value close to 1, demonstrating near-perfect alignment between predicted and actual values. This impressive performance may be attributed to the comprehensive feature engineering (such as rolling averages and interaction terms), which enables the model to capture nuanced relationships within the battery parameters.
+
+## Actual vs Predicted Temperature
+
+Below is the plot comparing the actual and predicted temperature values across samples. The close alignment of the two curves demonstrates the model's effectiveness in capturing temperature trends.
+
+![Actual vs Predicted Temperature](plots/actual_vs_predicted.png)
+
+**Insights**:
+- The **Actual Temperature** (in blue) and **Predicted Temperature** (in red) lines overlap closely, which further confirms the model's high accuracy.
+- The periodic fluctuations in temperature are well-captured, showing the model's ability to follow rapid changes and stabilize over varying conditions.
