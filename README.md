@@ -202,48 +202,37 @@ This combination of engineered features, sequence creation, and split ratios pro
 
 This combination of raw features, rolling statistics, lagged values, interaction terms, and cumulative metrics provides the model with a comprehensive view of the battery’s thermal behavior. Together, these features improve the model’s ability to capture both short-term fluctuations and long-term trends, enhancing its predictive accuracy for real-world applications.
 
-# Model Architecture
+## Model Architecture
 
-The model architecture chosen for this project is a simple but effective Long Short-Term Memory (LSTM) network, specifically designed for sequential data and time-series prediction. The architecture includes:
+The architecture for this temperature prediction model is based on a Long Short-Term Memory (LSTM) network, designed to capture temporal dependencies in time-series data. Below is an overview of the architectural components and configurations:
 
-- **LSTM Layer**: This layer consists of 64 units and serves as the core of the model. It is well-suited for capturing temporal dependencies in time-series data, which is essential for predicting battery temperature based on historical data points.
-- **Dense Layer**: A single Dense layer with one unit forms the output layer, responsible for generating the temperature prediction.
+- **Input Layer**: The input to the model consists of sequences of time-series data, with each sequence containing 10 time steps and multiple features. The time steps are selected to capture sufficient historical context for predicting future temperatures.
 
-The choice of an LSTM layer allows the model to learn patterns in the data that occur over time, making it capable of understanding cycles and other temporal relationships within the battery parameters.
+- **LSTM Layer**:
+  - **Units**: The LSTM layer contains 64 units, representing the number of LSTM cells in this layer. This configuration enables the model to retain memory of past data points and understand sequential relationships in the data.
+  - **Purpose**: The LSTM layer acts as the core of the model, learning dependencies between time steps to predict temperature accurately. It is well-suited for handling the time-series nature of the data, where the past influences the future.
 
-# Model Code
+- **Dense (Output) Layer**:
+  - **Units**: A single neuron is used in this dense layer to produce a scalar output, representing the predicted temperature value for each sequence.
+  - **Purpose**: This final layer provides the temperature prediction based on the learned patterns and dependencies captured by the LSTM layer.
 
-Below is the code used to define and train the model:
+### Model Compilation
 
-```python
-from keras.models import Sequential
-from keras.layers import LSTM, Dense
-from keras.callbacks import EarlyStopping
+The model is compiled using:
+- **Optimizer**: The Adam optimizer is used, which combines the benefits of both momentum and adaptive learning rates, facilitating faster and more stable convergence.
+- **Loss Function**: Mean Squared Error (MSE) is chosen as the loss function to penalize large errors in prediction, making it ideal for regression tasks.
+- **Evaluation Metric**: Mean Absolute Error (MAE) is tracked as an additional metric to evaluate the model’s performance in terms of average prediction error.
 
-# Define the model
-model = Sequential([
-    LSTM(64, input_shape=(window_size, len(features))),
-    Dense(1)  # Output layer for temperature prediction
-])
+### Training Process
 
-# Compile the model
-model.compile(optimizer='adam', loss='mse', metrics=['mae'])
+The model is trained using:
+- **Early Stopping**: Early stopping is implemented to prevent overfitting. It monitors the validation loss and stops training when there is no improvement for 10 consecutive epochs, restoring the best weights for optimal generalization.
+- **Epochs**: The model is trained for up to 100 epochs, allowing ample opportunity for the model to learn complex patterns.
+- **Batch Size**: A batch size of 32 is chosen, balancing memory efficiency with training speed.
 
-# Early stopping to avoid overfitting
-early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
+### Model Output
 
-# Train the model
-history = model.fit(
-    X_train_seq, y_train_seq,
-    validation_data=(X_val_seq, y_val_seq),
-    epochs=100,
-    batch_size=32,
-    callbacks=[early_stopping]
-)
-
-# Save the trained model
-model.save("temperature_prediction_lstm.h5")
-```
+After training, the model is saved as `temperature_prediction_lstm.h5`, allowing it to be reused and evaluated on unseen data. The architecture is designed to leverage both short-term and long-term dependencies in time-series data, making it well-suited for applications requiring high accuracy and robustness in temperature prediction.
 
 # Model Training and Validation
 
