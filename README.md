@@ -142,6 +142,42 @@ If you'd like to visualize real-time temperature predictions and data insights, 
 ```bash
    python src/dashboard.py
 ```
+# Feature Engineering and Selection
+
+In this project, we employed feature engineering techniques and carefully selected features to enhance the model’s ability to predict temperature accurately. Below is an overview of our approach to feature engineering and feature selection.
+
+## Step 1: Feature Selection
+
+The features were chosen based on their relevance to temperature prediction and their ability to capture critical trends and interactions within the battery system. The selected features include:
+
+- **Voltage [V]** and **Current [A]**: Core features representing the battery's electrical state, fundamental to predicting temperature behavior.
+- **Temperature [C]**: The target variable, directly capturing the thermal behavior of the system.
+- **Rolling Statistics**:
+  - `Temp_Rolling_Mean`: Captures the average temperature over a sliding window, useful for understanding temperature trends.
+  - `Voltage_Rolling_Std`: Highlights voltage fluctuations, helping to track variations over time.
+  - `Current_Rolling_Mean`: Represents the typical current trend, capturing consistent current behavior.
+- **Lagged Features**:
+  - `Temp_Lag_1` and `Voltage_Lag_1`: Values from the previous time step, which help capture temporal dependencies in the data.
+- **Interaction Terms**:
+  - `Voltage_Current_Interaction`: Reflects how voltage and current impact each other, giving insights into power usage patterns.
+  - `Temperature_Current_Interaction`: Captures the relationship between temperature changes and current levels.
+- **Cumulative Metrics**:
+  - `Cumulative_Capacity`: Tracks the accumulated capacity over time, an indicator of battery usage.
+  - `Cumulative_WhAccu`: Records accumulated watt-hours, showing energy usage trends that impact temperature.
+
+These features provide a mix of instantaneous measurements, historical trends, and interaction effects, making the model robust in predicting future temperature changes.
+
+## Step 2: Data Normalization
+
+To ensure all features are on a comparable scale and to improve model convergence, **MinMax Scaling** was applied to each feature and the target variable. This normalization approach helps in avoiding dominance by any single feature and improves model training stability.
+
+## Step 3: Sequence Creation
+
+Given that LSTM models require sequential data, we transformed the normalized data into sequences using a **sliding window approach**. Each sequence consists of 10 time steps, allowing the model to observe historical patterns when making predictions. This method of sequence creation is critical for capturing temporal dependencies within the data, as it allows the model to use past observations to inform future temperature predictions.
+
+## Summary
+
+By combining raw data, engineered features, and sequential patterns, our model benefits from a holistic view of the battery’s thermal behavior over time. This approach helps the model to accurately capture both short-term fluctuations and long-term trends in the temperature data, enhancing its predictive capabilities for real-world applications.
 
 # Model Architecture
 
