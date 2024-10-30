@@ -96,18 +96,19 @@ The data includes the following fields:
 To install the necessary packages, run:
       ```bash
       pip install -r requirements.txt
-
+      ```
 ### Run the data extraction and processing script:
 Execute the script to extract and preprocess the raw battery data:
-      ```bash
-      python src/data_processing.py
-
+```bash
+python src/data_processing.py
+```
 ### Train the model (example command):
 Train the temperature prediction model on the preprocessed data:
-      ```bash
-      python src/train_model.py
-
+```bash
+python src/train_model.py
+```
 ### Launch the dashboard for real-time monitoring (optional):
 If you'd like to visualize real-time temperature predictions and data insights, launch the dashboard:
-      ```bash
-      python src/dashboard.py
+```bash
+python src/dashboard.py
+```
