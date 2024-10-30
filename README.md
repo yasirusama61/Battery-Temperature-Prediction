@@ -63,6 +63,36 @@ Below is a summary of the main variables in the dataset, including key statistic
 - Handling negative values in capacity and accumulated energy may require preprocessing, as these could be anomalies or represent specific states in the cycle.
 - Since the data includes both high and low temperatures, it may be useful to segment or engineer features for extreme conditions to improve model performance.
 
+## Exploratory Data Analysis (EDA)
+
+### Temperature Over Time
+The temperature plot shows notable changes and fluctuations over time:
+- **Early Stability**: Initially, the temperature is stable, indicating a relatively constant operating condition.
+- **Sudden Increases**: There are points where the temperature rises significantly, reaching above 40°C, likely due to charging or heavy usage phases.
+- **Gradual Cooling**: After peak activity, there is a gradual decrease in temperature, potentially corresponding to cooling periods or rest phases.
+- **Dynamic Cycles**: We observe multiple cycles of heating and cooling, indicative of repeated charging/discharging sessions. These fluctuations can be used to analyze battery behavior under various loads and operational conditions.
+
+![Temperature Over Time](plots/temperature_over_time.png)
+
+### Voltage Over Time
+The voltage plot reveals essential patterns related to battery charge cycles:
+- **Repetitive Patterns**: There are recurring voltage cycles, possibly corresponding to charging and discharging states.
+- **Voltage Drops**: Frequent voltage drops to around 3V indicate discharge events, while rises to over 4V likely indicate charging sessions.
+- **Overall Stability**: Despite fluctuations, the voltage remains within the typical operational range for lithium-ion cells, showing consistent behavior across cycles.
+
+![Voltage Over Time](plots/voltage_over_timet.png)
+
+### Current Over Time
+The current plot offers insights into the battery’s power usage and regeneration:
+- **Positive and Negative Peaks**: Positive peaks represent charging currents, while negative peaks indicate discharging currents.
+- **High Discharge Currents**: The plot shows high discharge rates during certain intervals, which could correspond to high-power consumption phases.
+- **Low to Zero Current Phases**: These are indicative of rest or idle periods between active charge/discharge cycles.
+
+![Current Over Time](plots/current_overtime.png)
+
+This analysis offers a foundational understanding of the battery’s performance over time and can inform the feature engineering and model-building stages.
+
+
 ### Project-Specific Data Processing
 The data includes the following fields:
 - **Time Stamp**: Timestamp for each data entry.
