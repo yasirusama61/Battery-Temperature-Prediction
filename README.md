@@ -142,3 +142,74 @@ If you'd like to visualize real-time temperature predictions and data insights, 
 ```bash
    python src/dashboard.py
 ```
+
+# Model Architecture
+
+The model architecture chosen for this project is a simple but effective Long Short-Term Memory (LSTM) network, specifically designed for sequential data and time-series prediction. The architecture includes:
+
+- **LSTM Layer**: This layer consists of 64 units and serves as the core of the model. It is well-suited for capturing temporal dependencies in time-series data, which is essential for predicting battery temperature based on historical data points.
+- **Dense Layer**: A single Dense layer with one unit forms the output layer, responsible for generating the temperature prediction.
+
+The choice of an LSTM layer allows the model to learn patterns in the data that occur over time, making it capable of understanding cycles and other temporal relationships within the battery parameters.
+
+# Model Code
+
+Below is the code used to define and train the model:
+
+```python
+from keras.models import Sequential
+from keras.layers import LSTM, Dense
+from keras.callbacks import EarlyStopping
+
+# Define the model
+model = Sequential([
+    LSTM(64, input_shape=(window_size, len(features))),
+    Dense(1)  # Output layer for temperature prediction
+])
+
+# Compile the model
+model.compile(optimizer='adam', loss='mse', metrics=['mae'])
+
+# Early stopping to avoid overfitting
+early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
+
+# Train the model
+history = model.fit(
+    X_train_seq, y_train_seq,
+    validation_data=(X_val_seq, y_val_seq),
+    epochs=100,
+    batch_size=32,
+    callbacks=[early_stopping]
+)
+
+# Save the trained model
+model.save("temperature_prediction_lstm.h5")
+```
+
+# Model Training and Validation
+
+During training, the **Mean Squared Error (MSE)** was used as the loss function, while **Mean Absolute Error (MAE)** was tracked as an additional metric to evaluate model performance. Early stopping was employed to prevent overfitting by monitoring the validation loss. Training automatically stopped when there was no improvement in validation loss for 10 consecutive epochs.
+
+## Training and Validation Loss
+
+Below is the plot showing the training and validation loss curves over epochs:
+
+![Training and Validation Loss](plots/loss_curve.png)
+
+### Insights into the Loss Curve
+
+- **Initial Drop**: Both training and validation loss sharply decrease in the first few epochs, indicating that the model is quickly learning from the data. This initial drop is typical for LSTM models when they capture primary patterns in sequential data.
+
+- **Stabilization**: After a few epochs, both training and validation loss values stabilize, demonstrating that the model has reached a balance between bias and variance. The validation loss remains close to the training loss, which is a good indicator of generalization.
+
+- **Absence of Overfitting**: Thanks to early stopping, the model avoids overfitting as the validation loss does not increase significantly after the initial stabilization. This shows that the model can generalize well to unseen data, which is crucial for real-world applications.
+
+# Model Evaluation Results
+
+Upon evaluation on the test dataset, the model achieved the following metrics:
+
+- **Test Mean Squared Error (MSE)**: 2.6408e-6
+- **Test Root Mean Squared Error (RMSE)**: 0.0016
+- **R-squared (R²)**: 0.99997
+
+These metrics indicate that the model performs exceptionally well in predicting temperature values, with an extremely low error margin and an R-squared value close to 1, demonstrating near-perfect alignment between predicted and actual values. This impressive performance may be attributed to the comprehensive feature engineering (such as rolling averages and interaction terms), which enables the model to capture nuanced relationships within the battery parameters.
