@@ -181,6 +181,23 @@ To ensure all features are on a similar scale and facilitate model convergence, 
 
 For the LSTM model, we created sequences of data with a **window size of 10** time steps. Each sequence represents a historical window, allowing the model to observe past trends and dependencies when predicting future temperature values.
 
+### Step 4: Data Splits
+
+For training, validation, and testing, the dataset was split in a 70/15/15 ratio. This ensures that the model has sufficient data for learning and generalizing while retaining a test set for unbiased evaluation.
+
+**Split Summary**:
+- **Training Set**: 70% of the data, used for training the model to learn patterns and relationships in the data.
+- **Validation Set**: 15% of the data, used to tune hyperparameters and monitor the model’s performance on unseen data during training.
+- **Testing Set**: 15% of the data, held out for final evaluation to assess the model’s generalization to new data.
+
+**Data Split Sizes**:
+Based on the full dataset, the sizes for each split are as follows:
+- **Training Data Size**: 379,610 samples
+- **Validation Data Size**: 81,345 samples
+- **Testing Data Size**: 81,345 samples
+
+This combination of engineered features, sequence creation, and split ratios provides the model with a comprehensive dataset, helping it generalize well to real-world scenarios.
+
 ## Summary
 
 This combination of raw features, rolling statistics, lagged values, interaction terms, and cumulative metrics provides the model with a comprehensive view of the battery’s thermal behavior. Together, these features improve the model’s ability to capture both short-term fluctuations and long-term trends, enhancing its predictive accuracy for real-world applications.
