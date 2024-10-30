@@ -80,7 +80,7 @@ The voltage plot reveals essential patterns related to battery charge cycles:
 - **Voltage Drops**: Frequent voltage drops to around 3V indicate discharge events, while rises to over 4V likely indicate charging sessions.
 - **Overall Stability**: Despite fluctuations, the voltage remains within the typical operational range for lithium-ion cells, showing consistent behavior across cycles.
 
-![Voltage Over Time](plots/voltage_over_timet.png)
+![Voltage Over Time](plots/voltage_over_time.png)
 
 ### Current Over Time
 The current plot offers insights into the battery’s power usage and regeneration:
