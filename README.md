@@ -16,6 +16,28 @@ The dataset used in this project originates from research conducted at McMaster 
 
 The data was collected using an LG 18650HG2 battery cell, tested in a thermal chamber and analyzed with a Digatron Universal Battery Tester.
 
+### Summary Statistics of Resampled Data
+
+| Metric           | Voltage [V]   | Current [A]  | Temperature [°C]  | Capacity [Ah] | WhAccu [Wh] |
+|------------------|---------------|--------------|--------------------|---------------|-------------|
+| **Count**        | 5,423,272     | 5,423,272    | 5,423,272         | 5,423,272     | 5,423,272   |
+| **Mean**         | 351.87        | 3.91         | 8.35              | 0.11          | 0.55        |
+| **Std Dev**      | 799.02        | 0.36         | 16.68             | 1.30          | 4.99        |
+| **Min**          | 1.00          | 2.26         | -22.50            | -2.78         | -10.30      |
+| **25th Percentile** | 9.00      | 3.67         | -9.68             | -0.58         | -2.20       |
+| **Median**       | 24.00         | 4.15         | 9.16              | 0.01          | 0.05        |
+| **75th Percentile** | 44.00     | 4.19         | 23.83             | 0.94          | 3.69        |
+| **Max**          | 6,667.00      | 4.20         | 41.33             | 2.82          | 10.95       |
+
+### Observations:
+- **Voltage**: Mean voltage is significantly high, with a wide range from 1V to over 6,667V, indicating potential high-voltage charge cycles.
+- **Current**: Current values are consistent, with a mean of around 3.91A and a narrow spread, suggesting controlled discharge/charge cycles.
+- **Temperature**: Temperature ranges from -22.5°C to 41.33°C, reflecting testing under a wide range of ambient conditions.
+- **Capacity & Accumulated Energy (WhAccu)**: The data includes negative values for Capacity and WhAccu, likely due to discharge cycles, with a maximum capacity observed at 2.82Ah.
+
+This summary provides a snapshot of the battery's operating conditions across various cycles. The broad ranges in voltage and temperature underscore the testing's diversity, which will support a robust temperature prediction model.
+
+
 ### Project-Specific Data Processing
 The data includes the following fields:
 - **Time Stamp**: Timestamp for each data entry.
