@@ -16,7 +16,7 @@ The dataset used in this project originates from research conducted at McMaster 
 
 The data was collected using an LG 18650HG2 battery cell, tested in a thermal chamber and analyzed with a Digatron Universal Battery Tester.
 
-### Summary Statistics of Resampled Data
+### Summary Statistics of Data
 
 | Metric           | Voltage [V]   | Current [A]  | Temperature [°C]  | Capacity [Ah] | WhAccu [Wh] |
 |------------------|---------------|--------------|--------------------|---------------|-------------|
