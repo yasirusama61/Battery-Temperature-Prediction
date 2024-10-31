@@ -321,3 +321,20 @@ Key takeaways from this project include:
 - **Strong Model Performance**: The final evaluation metrics (low MSE, RMSE, and high R-squared values) indicate that the model is well-suited for real-world applications in battery temperature monitoring and management.
 
 Overall, this LSTM-based model, along with the feature engineering techniques used, presents a reliable approach to battery temperature prediction, contributing to safer and more efficient battery management systems.
+
+## References
+
+1. **Dataset**: The dataset used in this project was provided by Philip Kollmeyer, Carlos Vidal, Mina Naguib, and Michael Skells, and was conducted at McMaster University in Hamilton, Ontario, Canada. This dataset, titled *LG 18650HG2 Li-ion Battery Data and Example Deep Neural Network xEV SOC Estimator Script*, includes tests performed on a brand new 3Ah LG HG2 cell in a thermal chamber with a Digatron Universal Battery Tester.
+   - **Publication Date**: 6 March 2020, Version 3
+   - **DOI**: [10.17632/cp3473x7xv.3](https://doi.org/10.17632/cp3473x7xv.3)
+   - **Mendeley Data Page**: [https://data.mendeley.com/datasets/cp3473x7xv/2](https://data.mendeley.com/datasets/cp3473x7xv/2)
+   
+   **Description**: The data includes a comprehensive set of battery test results used for designing a State of Charge (SOC) estimator using a deep feedforward neural network (FNN) approach. It also provides an example script for data preparation, model training, and evaluation. This dataset has been utilized in various publications, including:
+
+   - Vidal, C., Kollmeyer, P., Naguib, M., Malysz, P., Gross, O., & Emadi, A. (2020). "Robust xEV Battery State-of-Charge Estimator Design using Deep Neural Networks." In *WCX SAE World Congress Experience*, Detroit, MI.
+   - Vidal, C., Kollmeyer, P., Chemali, E., & Emadi, A. (2019). "Li-ion Battery State of Charge Estimation Using Long Short-Term Memory Recurrent Neural Network with Transfer Learning." In *2019 IEEE Transportation Electrification Conference and Expo (ITEC)*, Detroit, MI, USA, pp. 1-6.
+
+   **Instructions for Data Use**: If you use this data in any project, please ensure that it is appropriately referenced, and follow the instructions provided in the accompanying documentation for data preparation and script execution.
+
+### Acknowledgments
+We would like to thank Philip Kollmeyer, Carlos Vidal, Mina Naguib, and Michael Skells for their work in creating and sharing this dataset. This data has been instrumental in the development and validation of the temperature prediction model used in this project.
