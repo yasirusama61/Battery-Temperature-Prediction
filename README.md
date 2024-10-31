@@ -283,7 +283,7 @@ Below is the plot comparing the actual and predicted temperature values across s
 To illustrate the model’s performance more clearly, we have included three zoomed-in plots of actual vs. predicted temperature values across various scenarios. These plots highlight the model's ability to capture temperature trends in different conditions, reinforcing its reliability for real-time applications.
 
 ### Plot 1: Gradual Temperature Trend (Top Left)
-This plot showcases a period where the temperature gradually fluctuates with some peaks and dips. Key observations:
+This plot showcases a period where the temperature gradually fluctuates with some peaks and dips. 
 - **Smooth Alignment**: The model closely follows the actual temperature trend, capturing both the gradual increase and decrease without introducing excessive noise.
 - **Accurate Peaks and Valleys**: The predicted values align well with the peaks and valleys, indicating that the model is able to track gradual shifts effectively.
 - **Reliability in Stable Conditions**: This alignment suggests that the model performs reliably in stable conditions, making it well-suited for environments where temperature changes are steady.
