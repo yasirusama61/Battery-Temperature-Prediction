@@ -276,6 +276,39 @@ Below is the plot comparing the actual and predicted temperature values across s
 - The **Actual Temperature** (in blue) and **Predicted Temperature** (in red) lines overlap closely, which further confirms the model's high accuracy.
 - The periodic fluctuations in temperature are well-captured, showing the model's ability to follow rapid changes and stabilize over varying conditions.
 
+## Zoomed-In Analysis of Temperature Predictions
+
+![Zoomed-In Temperature Predictions](plots/zoomed_in_plot.png)
+
+To illustrate the model’s performance more clearly, we have included three zoomed-in plots of actual vs. predicted temperature values across various scenarios. These plots highlight the model's ability to capture temperature trends in different conditions, reinforcing its reliability for real-time applications.
+
+### Plot 1: Gradual Temperature Trend (Top Left)
+This plot showcases a period where the temperature gradually fluctuates with some peaks and dips. Key observations:
+- **Smooth Alignment**: The model closely follows the actual temperature trend, capturing both the gradual increase and decrease without introducing excessive noise.
+- **Accurate Peaks and Valleys**: The predicted values align well with the peaks and valleys, indicating that the model is able to track gradual shifts effectively.
+- **Reliability in Stable Conditions**: This alignment suggests that the model performs reliably in stable conditions, making it well-suited for environments where temperature changes are steady.
+
+### Plot 2: Minor Temperature Fluctuations (Top Right)
+This plot highlights a period with minor fluctuations, where temperatures remain relatively close but exhibit small, rapid changes.
+- **Responsive to Minor Variations**: The model captures the small fluctuations in the temperature pattern well, demonstrating its ability to react to fine-grained changes.
+- **Minimal Lag**: There is little to no noticeable lag between the actual and predicted values, showing that the model can track quick, minor changes accurately.
+- **Maintained Stability**: The model does not overshoot or over-correct, maintaining smoothness in prediction, which is essential for real-world applications where small fluctuations matter.
+
+### Plot 3: Cyclic Temperature Pattern (Bottom Left)
+This plot shows a period with a clear cyclic pattern, where temperature rises and falls in repeated cycles.
+- **High Accuracy in Cyclic Patterns**: The model effectively captures the repeating pattern, closely following each peak and trough. This suggests that it can handle cyclic behavior, which is common in battery systems during specific cycles of charge and discharge.
+- **Predictive Consistency**: Each cycle's amplitude and frequency are accurately represented, reflecting the model’s ability to generalize learned cyclic patterns.
+- **Applicability in Real-World Cycles**: This plot demonstrates that the model could be highly applicable in real-world battery cycles, where temperature changes often follow cyclic patterns due to operational cycles.
+
+### Summary
+These zoomed-in plots reinforce the model’s robustness across various conditions:
+- **Gradual Trends**: The model performs well under smooth, gradual temperature trends.
+- **Minor Fluctuations**: It can accurately capture small, quick changes, which is essential for real-time monitoring.
+- **Cyclic Patterns**: The model handles cyclic temperature patterns effectively, showing predictive consistency over repeated cycles.
+
+This detailed analysis showcases the model’s adaptability and precision in different scenarios, adding confidence in its deployment for real-time battery monitoring, where accurate and responsive temperature predictions are crucial.
+
+
 ## Conclusion
 
 In this project, we developed a robust LSTM-based model to accurately predict battery temperature using a series of carefully engineered features. Through rolling statistics, lagged values, and interaction terms, we enabled the model to capture both short-term fluctuations and long-term trends, crucial for effective temperature forecasting in a dynamic battery system.
