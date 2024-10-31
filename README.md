@@ -108,11 +108,14 @@ The data includes the following fields:
 5. **Dashboard Creation**: Develop a visualization tool for real-time temperature monitoring.
 
 ## Repository Structure
-- `data/`: Contains raw and processed data.
-- `notebooks/`: Jupyter notebooks for exploratory data analysis and model development.
-- `src/`: Scripts for data processing and model training.
-- `models/`: Saved models.
-- `results/`: Plots, metrics, and other evaluation outputs.
+
+- `data/`
+- `plots/` 
+- `README.md`
+- `data_extraction.py`
+  - **Content**: Script for extracting data from raw sources or performing initial data processing steps.
+- `train_model.py`
+  - **Content**: Script for training the temperature prediction model.
 
 ## Setup and Installation
 1. Clone the repository:
