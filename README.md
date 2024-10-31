@@ -332,6 +332,15 @@ This model has the potential to significantly benefit several real-world applica
 
 By implementing this model in battery management systems, manufacturers and operators can achieve better control over battery temperature, improving both safety and operational efficiency.
 
+## Model Limitations and Future Improvements
+
+While the model demonstrates strong predictive accuracy, there are a few limitations to consider:
+
+- **Sensitivity to Seasonal Changes**: The model may perform differently under varying seasonal conditions. Testing with seasonal-specific data or introducing season as a feature could improve robustness.
+- **Limited Data Diversity**: This model was trained on data from a single battery type. Future work could involve training on diverse datasets to enhance generalization across different battery chemistries and sizes.
+- **Potential for Advanced Architectures**: The use of Transformer models or hybrid architectures could capture even more complex relationships in time-series data, potentially improving accuracy and generalization.
+
+Future improvements in these areas could further enhance the model’s applicability and performance in dynamic battery systems.
 
 ## References
 
