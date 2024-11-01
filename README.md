@@ -315,6 +315,42 @@ This detailed analysis showcases the model’s adaptability and precision in dif
 
 To gain insights into the model's predictions and understand the influence of each feature, we used SHAP (SHapley Additive exPlanations) values. Below is a summary of the interpretability analysis and its significance.
 
+## SHAP Analysis Procedure
+
+To interpret the contributions of each feature in our LSTM-based battery temperature prediction model, we employed **SHAP (SHapley Additive exPlanations)**, a method that assigns each feature an importance value based on its impact on the model’s output. Below is the step-by-step procedure we followed for the SHAP analysis:
+
+### Step 1: Sample Data Selection
+- **Training Data Sample**: We first selected a small subset of the training data to act as the background dataset, which SHAP uses to compute feature importance values. This subset helps SHAP approximate how each feature affects the model's output by observing small changes in predictions.
+- **Testing Data Sample**: A similar subset of test data was used to evaluate and visualize the model’s interpretability.
+
+### Step 2: Choosing the SHAP Explainer
+- Since our model is based on LSTM (a deep learning architecture), we experimented with various SHAP explainers:
+  - **GradientExplainer**: Chosen for its ability to work with TensorFlow/Keras models.
+  - We applied **GradientExplainer** on the pre-selected samples to compute SHAP values, quantifying the impact of each feature on the prediction.
+
+### Step 3: Computing SHAP Values
+- **SHAP Values Calculation**: Using the test sample, we computed the SHAP values for each feature across all time steps. These SHAP values represent how much each feature contributes (positively or negatively) to the prediction.
+  
+### Step 4: Visualizing SHAP Results
+We generated several SHAP plots to gain insights into feature importance and interactions:
+1. **Summary Plot**: Provides a global view of feature importance by aggregating the SHAP values across the entire test sample.
+   - This plot highlights which features are the most influential in predicting battery temperature, allowing us to identify the top contributing factors.
+   
+2. **Dependence Plot**: Focuses on specific features and visualizes their interaction with other influential features.
+   - For instance, we examined the effect of **Temperature [C]** and its interaction with **Voltage [V]**.
+   - This plot is useful for understanding how feature pairs (e.g., Temperature and Voltage) jointly impact the model’s prediction.
+
+3. **Force Plot** (Optional): This plot helps visualize individual predictions by showing how each feature pushes the prediction higher or lower for a given sample. Although this visualization is insightful for understanding specific cases, we primarily focused on summary-level insights.
+
+### Step 5: Interpretation and Insights
+- Based on the generated SHAP plots, we analyzed how features like **Temperature [C]**, **Voltage [V]**, and engineered features (e.g., rolling means, cumulative metrics) contribute to the prediction.
+- Key insights from SHAP analysis were incorporated into our **Conclusion** section to reflect the feature interactions and their importance in the model's performance.
+
+### Conclusion
+This SHAP analysis enabled us to better understand the LSTM model's behavior by breaking down the contributions of each feature. By linking SHAP results with our feature engineering choices, we ensured that the model predictions are interpretable, reliable, and suitable for real-world battery temperature monitoring applications.
+
+This section, alongside the **SHAP Feature Importance** and **SHAP Dependence Analysis** sections, provides a complete view of the interpretability efforts undertaken in this project.
+
 ### SHAP Summary Plot
 
 A SHAP summary plot was generated to display the impact of each feature on the model’s output. The plot helps to visually identify which features have the most influence on predicting battery temperature.
@@ -345,7 +381,7 @@ This section provides insights into how individual features influence the model'
 
 ### Temperature [C] Dependence Plot
 
-![SHAP Dependence Plot for Temperature [C]](plots/SHAP_temp_dependance_plot.png)
+![SHAP Dependence Plot for Temperature [C]](plots/SHAP_temp_dependance_plot.png)1
 
 The SHAP dependence plot above shows the impact of **Temperature [C]** on the model’s output, with **Voltage [V]** represented as a color gradient. Here’s the detailed analysis:
 
