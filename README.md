@@ -339,6 +339,34 @@ The interpretability analysis reinforces the importance of temperature data in a
 
 This interpretability section adds transparency to the model by explaining its behavior in a clear, understandable way, and helps stakeholders understand which features are driving the temperature predictions.
 
+## SHAP Dependence Analysis
+
+This section provides insights into how individual features influence the model's predictions, specifically focusing on **Temperature [C]** and its interaction with **Voltage [V]**.
+
+### Temperature [C] Dependence Plot
+
+![SHAP Dependence Plot for Temperature [C]](plots/SHAP_temp_dependance_plot.png)
+
+The SHAP dependence plot above shows the impact of **Temperature [C]** on the model’s output, with **Voltage [V]** represented as a color gradient. Here’s the detailed analysis:
+
+1. **Feature Contribution (Y-axis)**: The **SHAP value for Temperature [C]** on the Y-axis represents how this feature affects the model's prediction. 
+   - Positive SHAP values indicate that Temperature has a positive impact on the output.
+   - Negative values show a negative effect.
+
+2. **Feature Value (X-axis)**: The X-axis represents the value of **Temperature [C]**. The limited range suggests stable predictions in a specific operating condition.
+
+3. **Color Gradient (Voltage [V])**: The color of each dot represents the **Voltage [V]** value for that observation:
+   - **Higher Temperatures (red)** correspond to higher SHAP values, indicating a stronger positive influence on the model's prediction.
+   - **Lower Temperatures (blue)** have SHAP values closer to zero or negative, suggesting a lesser or opposite effect on the prediction.
+
+4. **Insights on Temperature and Voltage Interaction**: The dependence plot reveals that at certain temperature levels, Voltage exerts a notable influence. High Voltage values (in red) tend to cluster around higher SHAP value bands, showing how Voltage and Temperature jointly affect the prediction, which could be due to the battery’s thermal and voltage interactions during operation.
+
+### Summary
+This plot emphasizes the model’s sensitivity to **Temperature [C]** and **Voltage [V]** variations. Observations with higher Temperature and Voltage levels generally increase the model output, indicating that these features are critical for accurate battery temperature predictions. This sensitivity is essential for battery management applications where thermal and voltage factors are crucial for performance and safety.
+
+This analysis can be found in the **SHAP Feature Importance** section of the README, highlighting the importance of Temperature and Voltage in model interpretability.
+
+
 ## Conclusion
 
 In this project, we developed a robust LSTM-based model to accurately predict battery temperature using a series of carefully engineered features. Through rolling statistics, lagged values, and interaction terms, we enabled the model to capture both short-term fluctuations and long-term trends, which are crucial for effective temperature forecasting in a dynamic battery system.
