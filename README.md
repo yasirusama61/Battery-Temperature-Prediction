@@ -321,11 +321,17 @@ A SHAP summary plot was generated to display the impact of each feature on the m
 
 ![SHAP Summary Plot](plots/SHAP.png)
 
+### SHAP Force Plot for Single Prediction
+The following SHAP force plot provides a detailed view of the feature contributions for a single prediction. Each feature pushes the prediction higher or lower compared to the baseline, helping to explain how the model reached its output for this specific case.
+
+![SHAP Force Plot](plots/force_plot.png)
+
 ### Analysis
 
 - **Key Influential Features**: The features with the most significant impact on temperature prediction are **Temperature [C]** and **Temp_Lag_1**. This suggests that both the current and previous temperature readings strongly affect the model's temperature predictions.
 - **Additional Influential Features**: Other features such as **Temp_Rolling_Mean** and **Cumulative Capacity** also have a notable impact, though to a lesser extent compared to temperature-related features.
 - **Feature Interactions**: The SHAP values provide insight into how certain feature interactions (e.g., **Voltage_Current_Interaction**) might influence temperature predictions, though their overall effect appears moderate relative to temperature-based features.
+- **Feature Contribution in Single Prediction**: The force plot illustrates how specific values of **Voltage [V]**, **Temp_Rolling_Mean**, and other features influence the prediction in a single instance, with red pushing the prediction higher and blue pulling it lower. This provides an individual explanation, aiding in model interpretability.
 
 The interpretability analysis reinforces the importance of temperature data in accurately predicting battery temperature. By understanding the key drivers, we gain confidence in the model’s predictions and can potentially optimize the feature set for future iterations. This analysis also highlights the robustness of the model in leveraging both short-term and cumulative metrics to capture thermal behavior, which can improve performance across various operating conditions.
 
