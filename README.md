@@ -320,6 +320,8 @@ To gain insights into the model's predictions and understand the influence of ea
 To interpret the contributions of each feature in our LSTM-based battery temperature prediction model, we employed **SHAP (SHapley Additive exPlanations)**, a method that assigns each feature an importance value based on its impact on the model’s output. Below is the step-by-step procedure we followed for the SHAP analysis:
 
 ### Step 1: Sample Data Selection
+
+For computational efficiency, we used a subset of data to perform SHAP analysis. Initially, 100 samples were selected for training and 50 for testing. To improve robustness, the sample sizes were later increased to 1000 for training and 500 for testing.
 - **Training Data Sample**: We first selected a small subset of the training data to act as the background dataset, which SHAP uses to compute feature importance values. This subset helps SHAP approximate how each feature affects the model's output by observing small changes in predictions.
 - **Testing Data Sample**: A similar subset of test data was used to evaluate and visualize the model’s interpretability.
 
