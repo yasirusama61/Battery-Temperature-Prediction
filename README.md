@@ -311,6 +311,27 @@ These zoomed-in plots reinforce the model’s robustness across various conditio
 
 This detailed analysis showcases the model’s adaptability and precision in different scenarios, adding confidence in its deployment for real-time battery monitoring, where accurate and responsive temperature predictions are crucial.
 
+## Interpretability Analysis
+
+To gain insights into the model's predictions and understand the influence of each feature, we used SHAP (SHapley Additive exPlanations) values. Below is a summary of the interpretability analysis and its significance.
+
+### SHAP Summary Plot
+
+A SHAP summary plot was generated to display the impact of each feature on the model’s output. The plot helps to visually identify which features have the most influence on predicting battery temperature.
+
+![SHAP Summary Plot](plots/SHAP.png)
+
+### Analysis
+
+- **Key Influential Features**: The features with the most significant impact on temperature prediction are **Temperature [C]** and **Temp_Lag_1**. This suggests that both the current and previous temperature readings strongly affect the model's temperature predictions.
+- **Additional Influential Features**: Other features such as **Temp_Rolling_Mean** and **Cumulative Capacity** also have a notable impact, though to a lesser extent compared to temperature-related features.
+- **Feature Interactions**: The SHAP values provide insight into how certain feature interactions (e.g., **Voltage_Current_Interaction**) might influence temperature predictions, though their overall effect appears moderate relative to temperature-based features.
+
+The interpretability analysis reinforces the importance of temperature data in accurately predicting battery temperature. By understanding the key drivers, we gain confidence in the model’s predictions and can potentially optimize the feature set for future iterations. This analysis also highlights the robustness of the model in leveraging both short-term and cumulative metrics to capture thermal behavior, which can improve performance across various operating conditions.
+
+---
+
+This interpretability section adds transparency to the model by explaining its behavior in a clear, understandable way, and helps stakeholders understand which features are driving the temperature predictions.
 
 ## Conclusion
 
