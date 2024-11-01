@@ -321,13 +321,17 @@ To understand where and how the model underperforms, a residual plot was generat
 
 #### Analysis of Residual Plot
 
-1. **Consistency Over Time**: The residuals generally center around zero, indicating that the model does not exhibit significant bias. This suggests a well-balanced performance, with no consistent overestimation or underestimation of the temperature values.
-  
-2. **Patterns and Clustering**: Clusters of residuals appear at different time intervals, notably around 10,000, 40,000, and 70,000 time steps. This clustering may suggest that during specific operating conditions or time periods, the model's predictions become less accurate. Further investigation into these intervals could reveal relationships with external factors, such as temperature variations, load changes, or other operating conditions.
+1. **Consistency Over Time**: The residuals generally center around zero, indicating that the model is balanced in its predictions and does not exhibit a persistent bias toward overestimation or underestimation. This shows that the model maintains stability across different periods within the time series.
 
-3. **Outliers**: A few residual points appear as outliers, particularly below -0.01 and above 0.01. These outliers represent instances where the model significantly deviated from actual temperature values. Examining these outliers may provide insights into where the model encounters challenges, potentially due to unseen or complex interactions in those conditions.
+2. **Patterns and Clustering**: Certain clusters of residuals are visible around specific time intervals, particularly around dates such as December 18th, December 22nd, and December 24th. These clusters may indicate that the model's accuracy varies during certain operating periods or due to specific conditions. Further investigation into these intervals might reveal correlations with external factors like load variations, ambient temperature changes, or operational shifts.
 
-4. **Variation in Residual Magnitude**: Beyond 50,000 time steps, there is an increase in residual spread, indicating that the model may struggle under evolving conditions or unfamiliar patterns in the dataset. This could highlight a need for model fine-tuning or additional feature engineering.
+3. **Outliers**: A few outliers are noticeable, with residuals exceeding 0.01 or dropping below -0.01. These outliers represent instances where the model predictions deviated significantly from the actual temperature values. Examining these outliers could provide insights into scenarios where the model faces challenges, possibly due to complex, non-linear interactions or unobserved features.
+
+4. **Residual Magnitude Variability**: Towards the end of the time series (beyond December 24th), an increase in residual spread is apparent, showing that the model's prediction errors become more varied. This could suggest that the model encounters unfamiliar conditions or evolving patterns in the dataset, potentially pointing to the need for model retraining on recent data or additional feature engineering to capture these dynamics.
+
+---
+
+This updated analysis provides insights into how the model's predictive accuracy varies across different time intervals, highlights areas for potential model improvement, and underscores the importance of feature exploration for sustained performance over time.
 
 ### Residual Distribution Analysis
 
