@@ -311,6 +311,59 @@ These zoomed-in plots reinforce the model’s robustness across various conditio
 
 This detailed analysis showcases the model’s adaptability and precision in different scenarios, adding confidence in its deployment for real-time battery monitoring, where accurate and responsive temperature predictions are crucial.
 
+## Error Analysis
+
+### Residual Analysis
+
+To understand where and how the model underperforms, a residual plot was generated to visualize the differences between actual and predicted values over time.
+
+![Residual Plot](plots/residuals_plot.png)
+
+#### Analysis of Residual Plot
+
+1. **Consistency Over Time**: The residuals generally center around zero, indicating that the model does not exhibit significant bias. This suggests a well-balanced performance, with no consistent overestimation or underestimation of the temperature values.
+  
+2. **Patterns and Clustering**: Clusters of residuals appear at different time intervals, notably around 10,000, 40,000, and 70,000 time steps. This clustering may suggest that during specific operating conditions or time periods, the model's predictions become less accurate. Further investigation into these intervals could reveal relationships with external factors, such as temperature variations, load changes, or other operating conditions.
+
+3. **Outliers**: A few residual points appear as outliers, particularly below -0.01 and above 0.01. These outliers represent instances where the model significantly deviated from actual temperature values. Examining these outliers may provide insights into where the model encounters challenges, potentially due to unseen or complex interactions in those conditions.
+
+4. **Variation in Residual Magnitude**: Beyond 50,000 time steps, there is an increase in residual spread, indicating that the model may struggle under evolving conditions or unfamiliar patterns in the dataset. This could highlight a need for model fine-tuning or additional feature engineering.
+
+### Residual Distribution Analysis
+
+To further analyze the model’s performance, we examined the distribution of residuals (errors) to understand the spread and frequency of prediction errors.
+
+![Residual Distribution Plot](plots/distribution_of_residuals.png)
+
+#### Analysis of Residual Distribution Plot
+
+1. **Symmetry Around Zero**: The distribution of residuals is centered around zero, suggesting that the model does not exhibit a systematic bias toward over- or under-predicting temperatures.
+  
+2. **Narrow Spread**: The majority of residuals are close to zero, indicating that the model performs well on most predictions, with minimal deviation. This aligns with the earlier residual analysis, where the model consistently approximates actual values.
+
+3. **Presence of Outliers**: Although the distribution is largely concentrated near zero, there are minor tails on both sides. These tails represent instances where the model's predictions deviate more significantly from actual values, potentially due to specific conditions or operational anomalies.
+
+4. **High Frequency of Accurate Predictions**: The high frequency around the zero residual mark reflects that the model maintains a strong predictive performance for most data points, with errors clustered closely around zero.
+
+### Implications for Model Reliability
+
+This residual distribution plot provides confidence in the model's reliability, as it demonstrates that the model generally maintains a high degree of accuracy with minimal error. The concentration around zero, coupled with minimal outliers, suggests that the model can be trusted for real-world applications in battery temperature prediction.
+
+---
+Adding this analysis enhances the interpretability of the model, showing stakeholders that the model’s predictions are not only accurate but also consistently reliable across different conditions.
+
+
+#### Next Steps
+
+- **Investigate Clusters and Outliers**: To refine the model further, we plan to analyze correlations with features like ambient temperature, current, or voltage during these clustered or outlying periods.
+  
+- **Feature Engineering Adjustments**: Based on the findings, incorporating specific feature relationships or adding interaction terms could help improve model performance in challenging conditions.
+
+- **Enhance Temporal Features**: Adding temporal trend or moving average features may help the model capture patterns over time, improving accuracy across various operational periods.
+
+This error analysis provides a deeper understanding of the model's limitations and highlights areas for potential improvement, enabling more reliable battery temperature predictions in real-world applications.
+
+
 ## Interpretability Analysis
 
 To gain insights into the model's predictions and understand the influence of each feature, we used SHAP (SHapley Additive exPlanations) values. Below is a summary of the interpretability analysis and its significance.
