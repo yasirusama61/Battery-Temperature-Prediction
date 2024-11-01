@@ -324,7 +324,7 @@ A SHAP summary plot was generated to display the impact of each feature on the m
 ### SHAP Force Plot for Single Prediction
 The following SHAP force plot provides a detailed view of the feature contributions for a single prediction. Each feature pushes the prediction higher or lower compared to the baseline, helping to explain how the model reached its output for this specific case.
 
-![SHAP Force Plot](plots/force_plot.png)
+![SHAP Force Plot](plots/SHAP_forceplot.png)
 
 ### Analysis
 
