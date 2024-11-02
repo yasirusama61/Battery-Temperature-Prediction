@@ -465,17 +465,17 @@ This analysis can be found in the **SHAP Feature Importance** section of the REA
 
 To test the robustness of the LSTM model, we simulated data using the **PyBAMM library** with the LGM50LT cell. The simulation included variations in discharge and charge cycles to observe temperature fluctuations under different conditions.
 
-### Experiment Details for Simulated Data
+### PyBaMM Setup and Experiment Details
+We employed the **Doyle-Fuller-Newman (DFN) model** with thermal effects enabled, simulating a **pouch cell** configuration. This setup was chosen to reflect realistic thermal dynamics and behavior. A custom **ambient temperature function** was defined to introduce temperature fluctuations over time, creating more dynamic and challenging prediction scenarios for the model.
 
-The temperature prediction model was validated using simulated data generated from the PyBaMM framework, using the **LGM50LT cell model**. The experiment was designed to simulate realistic operational cycles, which consisted of:
+**Experiment Configuration**:
+- **Discharge** at 0.4C until the cell voltage reached 2.5 V
+- **Rest** for 10 minutes
+- **Charge** at 0.5C until 4.2 V
+- **Hold** at 4.2 V until the current dropped to 50 mA
+- **Rest** for 10 minutes
 
-1. **Discharge at 0.4C until 2.5 V**: The cell underwent a discharge process at 0.4C (a rate that would discharge the cell's full capacity in 2.5 hours) until the voltage dropped to 2.5V.
-2. **Rest for 10 minutes**: A resting phase followed to allow the cell to reach thermal equilibrium and stabilize.
-3. **Charge at 0.5C until 4.2 V**: The charging phase involved charging the cell at 0.5C (charging at a rate that would fill the cell's full capacity in 2 hours) until the voltage reached 4.2V.
-4. **Hold at 4.2 V until 50 mA**: A holding step at 4.2V was maintained until the current dropped to 50mA to ensure complete charging.
-5. **Rest for 10 minutes**: Another rest phase was added to allow for temperature stabilization.
-
-This cycle was repeated 10 times, providing data that reflected both the dynamic behavior during charging and discharging and steady-state conditions during rest periods. The experiment was sampled at 1-second intervals to generate high-resolution data for key parameters, including temperature, voltage, and current.
+The experiment was repeated for 100 cycles with a data recording period of **1 second**. The simulated data included time, voltage, current, state of charge (SOC), and temperature readings.
 
 ### Importance of the Experiment
 
