@@ -477,6 +477,37 @@ The data preparation process, including normalization and sequence creation, pro
 ### Overall Impact
 This LSTM-based model, along with the feature engineering and interpretability techniques used, presents a reliable and explainable approach to battery temperature prediction, contributing to safer and more efficient battery management systems. By understanding the primary drivers behind temperature changes, this model aids in predictive maintenance and effective thermal management, ultimately enhancing battery safety and performance in real-world applications.
 
+## Evaluation on Simulated Data using PyBAMM
+
+To test the robustness of the LSTM model, we simulated data using the **PyBAMM library** with the LGM50LT cell. The simulation included variations in discharge and charge cycles to observe temperature fluctuations under different conditions.
+
+### Simulation Setup
+The PyBAMM simulation was configured to include detailed cycling steps, with controlled discharge and charge rates to induce temperature variations. The following features were extracted from the simulation:
+- **Time [s]**
+- **Voltage [V]**
+- **Current [A]**
+- **SOC (State of Charge)**
+- **Temperature [°C]**
+
+### Model Evaluation on Simulated Data
+The model's performance on this new dataset was evaluated using standard metrics:
+
+- **Mean Squared Error (MSE)**: 1.3979e-07
+- **Root Mean Squared Error (RMSE)**: 0.00037
+- **R-squared (R²)**: 0.939
+
+### Visualization of Results
+Below is a comparison plot showing the actual and predicted temperature over the test samples.
+
+![Actual vs Predicted Temperature](plots/predicted_temp_bybamm.png)
+
+#### Analysis
+The model demonstrated high accuracy with an R-squared value of 0.939, indicating it can generalize well even on unseen, simulated data. The consistent alignment between actual and predicted temperatures highlights the model's capability to accurately forecast temperature fluctuations under varied operating conditions.
+
+This test further confirms that the model is reliable for applications involving temperature prediction in battery systems, especially for real-world scenarios and synthetic data generated for diverse conditions.
+
+
+
 ## Usage in Real-World Applications
 
 This model has the potential to significantly benefit several real-world applications:
