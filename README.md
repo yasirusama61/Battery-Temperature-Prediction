@@ -501,12 +501,27 @@ Below is a comparison plot showing the actual and predicted temperature over the
 
 ![Actual vs Predicted Temperature](plots/predicted_temp_bybamm.png)
 
-#### Analysis
+### Insights from the Actual vs. Predicted Temperature Plot
+
+The following insights can be derived from the provided **Actual vs. Predicted Temperature** plot:
+
+1. **High Prediction Accuracy**: The plot demonstrates a good match between the actual and predicted temperature trends, indicating that the model effectively captures the underlying patterns and dynamics of battery temperature during operation.
+
+2. **Cycle Consistency**: The temperature variations, including peaks and valleys that occur periodically, reflect the battery's charge and discharge cycles. The model accurately tracks these cycles, confirming its capability to generalize over multiple operational cycles.
+
+3. **Deviations at Peaks**: While the model predicts the overall trend well, slight deviations can be observed at the peaks where the actual temperature is marginally higher than the predicted temperature. This indicates that the model may slightly underestimate the temperature during rapid increases, possibly due to limitations in capturing sudden thermal changes.
+
+4. **Steady Baseline Tracking**: The model shows consistent tracking of the temperature during the lower parts of the cycles, maintaining close proximity to the actual values. This suggests that the model performs well under stable conditions where the temperature fluctuates less dramatically.
+
+5. **Application Robustness**: These results reinforce the model's robustness for real-world applications such as battery management and monitoring, where accurate temperature prediction is critical for safety and performance.
+
+6. **Areas for Further Improvement**: Although the model performs well, enhancing the model to better capture peak values could further improve its accuracy. This might involve incorporating additional features related to heat generation or dynamic system interactions during charging and discharging.
+
+Overall, the plot supports the conclusion that the model is reliable for temperature prediction across various cycles, making it suitable for battery management system implementations.
+
 The model demonstrated high accuracy with an R-squared value of 0.939, indicating it can generalize well even on unseen, simulated data. The consistent alignment between actual and predicted temperatures highlights the model's capability to accurately forecast temperature fluctuations under varied operating conditions.
 
 This test further confirms that the model is reliable for applications involving temperature prediction in battery systems, especially for real-world scenarios and synthetic data generated for diverse conditions.
-
-
 
 ## Usage in Real-World Applications
 
