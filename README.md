@@ -461,22 +461,6 @@ This plot emphasizes the model’s sensitivity to **Temperature [C]** and **Volt
 
 This analysis can be found in the **SHAP Feature Importance** section of the README, highlighting the importance of Temperature and Voltage in model interpretability.
 
-
-## Conclusion
-
-In this project, we developed a robust LSTM-based model to accurately predict battery temperature using a series of carefully engineered features. Through rolling statistics, lagged values, and interaction terms, we enabled the model to capture both short-term fluctuations and long-term trends, which are crucial for effective temperature forecasting in a dynamic battery system.
-
-The data preparation process, including normalization and sequence creation, provided the model with structured inputs that effectively leveraged past information for future predictions. The model was trained, validated, and tested on a well-balanced dataset, demonstrating high accuracy and strong generalization performance across unseen data.
-
-### Key Takeaways
-- **Comprehensive Feature Engineering**: The combination of core features, rolling statistics, lagged features, and interaction terms significantly improved the model's performance. SHAP analysis confirmed the importance of engineered features, particularly **Temperature [C]** and **Temp_Lag_1**, which were consistently influential in the model’s predictions.
-- **Effective Data Splitting and Preprocessing**: Normalization, sequence creation, and a clear train-validation-test split were essential in achieving high predictive accuracy and preventing overfitting.
-- **Model Interpretability and Transparency**: SHAP interpretability analysis provided insights into the impact of individual features on predictions. The global SHAP summary plot highlighted key features driving the model's output, and the force plot offered instance-specific explanations, further validating the choice of features and the robustness of the model in leveraging relevant information.
-- **Strong Model Performance**: The final evaluation metrics (low MSE, RMSE, and high R-squared values) indicate that the model is well-suited for real-world applications in battery temperature monitoring and management.
-
-### Overall Impact
-This LSTM-based model, along with the feature engineering and interpretability techniques used, presents a reliable and explainable approach to battery temperature prediction, contributing to safer and more efficient battery management systems. By understanding the primary drivers behind temperature changes, this model aids in predictive maintenance and effective thermal management, ultimately enhancing battery safety and performance in real-world applications.
-
 ## Evaluation on Simulated Data using PyBAMM
 
 To test the robustness of the LSTM model, we simulated data using the **PyBAMM library** with the LGM50LT cell. The simulation included variations in discharge and charge cycles to observe temperature fluctuations under different conditions.
@@ -538,6 +522,21 @@ Overall, the plot supports the conclusion that the model is reliable for tempera
 The model demonstrated high accuracy with an R-squared value of 0.939, indicating it can generalize well even on unseen, simulated data. The consistent alignment between actual and predicted temperatures highlights the model's capability to accurately forecast temperature fluctuations under varied operating conditions.
 
 This test further confirms that the model is reliable for applications involving temperature prediction in battery systems, especially for real-world scenarios and synthetic data generated for diverse conditions.
+
+## Conclusion
+
+In this project, we developed a robust LSTM-based model to accurately predict battery temperature using a series of carefully engineered features. Through rolling statistics, lagged values, and interaction terms, we enabled the model to capture both short-term fluctuations and long-term trends, which are crucial for effective temperature forecasting in a dynamic battery system.
+
+The data preparation process, including normalization and sequence creation, provided the model with structured inputs that effectively leveraged past information for future predictions. The model was trained, validated, and tested on a well-balanced dataset, demonstrating high accuracy and strong generalization performance across unseen data. Additionally, simulated data from the LGM50LT cell using PyBaMM further validated the model's adaptability and predictive strength.
+
+### Key Takeaways
+- **Comprehensive Feature Engineering**: The combination of core features, rolling statistics, lagged features, and interaction terms significantly improved the model's performance. SHAP analysis confirmed the importance of engineered features, particularly **Temperature [C]** and **Temp_Lag_1**, which were consistently influential in the model’s predictions.
+- **Effective Data Splitting and Preprocessing**: Normalization, sequence creation, and a clear train-validation-test split were essential in achieving high predictive accuracy and preventing overfitting.
+- **Model Interpretability and Transparency**: SHAP interpretability analysis provided insights into the impact of individual features on predictions. The global SHAP summary plot highlighted key features driving the model's output, and the force plot offered instance-specific explanations, further validating the choice of features and the robustness of the model in leveraging relevant information.
+- **Strong Model Performance**: The final evaluation metrics, including low MSE, RMSE, and high R-squared values on both real and simulated data, indicate that the model is well-suited for real-world applications in battery temperature monitoring and management. The analysis of residuals and prediction intervals also reinforced the model's reliability and confidence levels.
+
+### Overall Impact
+This LSTM-based model, along with the feature engineering and interpretability techniques used, presents a reliable and explainable approach to battery temperature prediction, contributing to safer and more efficient battery management systems. By understanding the primary drivers behind temperature changes, this model aids in predictive maintenance and effective thermal management, ultimately enhancing battery safety and performance in real-world applications. The validation with PyBaMM-generated data further underscores the model's adaptability to various operating conditions and cell chemistries.
 
 ## Usage in Real-World Applications
 
