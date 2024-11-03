@@ -1,64 +1,68 @@
-# Validation and Model Testing Script
+# Validation and Testing Script
 
-"""
-Author: Usama Yasir Khan
-AI Engineer specializing in battery management systems and predictive modeling.
-This script is developed as part of the temperature prediction project for validating new data and testing the trained model.
-"""
+# Author: Usama Yasir Khan
+# Owner: Usama Yasir Khan, AI Engineer specializing in battery management systems and predictive modeling.
 
 import pandas as pd
 import numpy as np
 import joblib
-import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
+import tensorflow as tf
 
-# Load the trained model
-model = joblib.load('temperature_model.pkl')
+# Load the saved model
+model = tf.keras.models.load_model('saved_model.h5')
 
-# Load new data
-new_data = pd.read_csv('new_validation_data.csv')
+# Load the scalers
+scaler_x = joblib.load('scaler_x.pkl')
+scaler_y = joblib.load('scaler_y.pkl')
 
-# Convert 'Time [s]' column to datetime for resampling
-new_data['Time [s]'] = pd.to_timedelta(new_data['Time [s]'], unit='s')
-new_data.set_index('Time [s]', inplace=True)
+# 1. Load New Data
+data = pd.read_csv('new_validation_data.csv')
 
-# Resample data to 10-second intervals
-new_data_resampled = new_data.resample('10S').mean()
-new_data_resampled = new_data_resampled.interpolate()  # Handle any NaNs
+# 2. Resample Data to 10-Second Intervals
+data['Time [s]'] = pd.to_timedelta(data['Time [s]'], unit='s')
+data.set_index('Time [s]', inplace=True)
+data = data.resample('10S').mean()
+data.reset_index(inplace=True)
+data['Time [s]'] = data['Time [s]'].dt.total_seconds()
 
-# Create new features
-new_data_resampled['Cumulative_Capacity'] = (new_data_resampled['Current [A]'] * (10 / 3600)).cumsum()  # Capacity in Ah
-new_data_resampled['Cumulative_WhAccu'] = (new_data_resampled['Voltage [V]'] * new_data_resampled['Current [A]'] * (10 / 3600)).cumsum()  # Energy in Wh
+# 3. Feature Engineering
+data['Temp_Rolling_Mean'] = data['Temperature [C]'].rolling(window=30).mean()
+data['Voltage_Rolling_Std'] = data['Voltage [V]'].rolling(window=30).std()
+data['Current_Rolling_Mean'] = data['Current [A]'].rolling(window=30).mean()
+data['Temp_Lag_1'] = data['Temperature [C]'].shift(1)
+data['Voltage_Lag_1'] = data['Voltage [V]'].shift(1)
+data['Voltage_Current_Interaction'] = data['Voltage [V]'] * data['Current [A]']
+data['Temperature_Current_Interaction'] = data['Temperature [C]'] * data['Current [A]']
+data['Cumulative_Capacity'] = data['Capacity [Ah]'].cumsum()
+data['Cumulative_WhAccu'] = data['WhAccu [Wh]'].cumsum()
+data.dropna(inplace=True)
 
-# Ensure SOC column exists (if needed, calculate it)
-if 'SOC' not in new_data_resampled.columns:
-    nominal_capacity = 5  # Adjust based on your cell capacity
-    new_data_resampled['SOC'] = 1 - (new_data_resampled['Cumulative_Capacity'] / nominal_capacity)
+# 4. Prepare Data for Model Testing
+feature_columns = [
+    'Voltage [V]', 'Current [A]', 'Temperature [C]', 'Temp_Rolling_Mean',
+    'Voltage_Rolling_Std', 'Current_Rolling_Mean', 'Temp_Lag_1', 'Voltage_Lag_1',
+    'Voltage_Current_Interaction', 'Temperature_Current_Interaction',
+    'Cumulative_Capacity', 'Cumulative_WhAccu'
+]
 
-# Prepare data for model input (ensure feature alignment)
-features = ['Voltage [V]', 'Current [A]', 'Temperature [C]', 'Cumulative_Capacity', 'Cumulative_WhAccu', 'SOC']
-X_new = new_data_resampled[features].values
+X_test = data[feature_columns]
+X_test_scaled = scaler_x.transform(X_test)
 
-# Make predictions
-predictions = model.predict(X_new)
+# 5. Model Prediction
+y_pred_scaled = model.predict(X_test_scaled)
+y_pred = scaler_y.inverse_transform(y_pred_scaled)
 
-# Evaluate the model
-actuals = new_data_resampled['Temperature [C]'].values  # Replace with actual target column if different
-mse = mean_squared_error(actuals, predictions)
-rmse = np.sqrt(mse)
-r2 = r2_score(actuals, predictions)
+# 6. Calculate R-squared and MSE
+actual_temperature = data['Temperature [C]'].values.reshape(-1, 1)
+mse = mean_squared_error(actual_temperature, y_pred)
+r2 = r2_score(actual_temperature, y_pred)
 
-# Print evaluation results
 print(f"Mean Squared Error (MSE): {mse}")
-print(f"Root Mean Squared Error (RMSE): {rmse}")
 print(f"R-squared (R²): {r2}")
 
-# Plot actual vs predicted temperatures
-plt.figure(figsize=(14, 6))
-plt.plot(actuals, label='Actual Temperature', color='blue')
-plt.plot(predictions, label='Predicted Temperature', color='orange')
-plt.xlabel('Time Step')
-plt.ylabel('Temperature [C]')
-plt.title('Model Predictions vs Actual Temperature')
-plt.legend()
-plt.show()
+# 7. Save Predictions
+data['Predicted Temperature [C]'] = y_pred
+
+data.to_csv('validated_results.csv', index=False)
+print("Validation and predictions complete. Results saved to 'validated_results.csv'")
