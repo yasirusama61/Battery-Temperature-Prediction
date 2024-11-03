@@ -6,8 +6,9 @@
 import pandas as pd
 import numpy as np
 import joblib
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import StandardScaler
 import tensorflow as tf
+from sklearn.metrics import mean_squared_error, r2_score
 
 # Load the saved model
 model = tf.keras.models.load_model('saved_model.h5')
@@ -49,20 +50,27 @@ feature_columns = [
 X_test = data[feature_columns]
 X_test_scaled = scaler_x.transform(X_test)
 
-# 5. Model Prediction
-y_pred_scaled = model.predict(X_test_scaled)
+# 5. Create Sequences for LSTM Input
+sequence_length = 10
+X_test_seq = []
+for i in range(len(X_test_scaled) - sequence_length + 1):
+    X_test_seq.append(X_test_scaled[i:i + sequence_length])
+X_test_seq = np.array(X_test_seq)
+
+# 6. Model Prediction
+y_pred_scaled = model.predict(X_test_seq)
 y_pred = scaler_y.inverse_transform(y_pred_scaled)
 
-# 6. Calculate R-squared and MSE
-actual_temperature = data['Temperature [C]'].values.reshape(-1, 1)
-mse = mean_squared_error(actual_temperature, y_pred)
-r2 = r2_score(actual_temperature, y_pred)
-
-print(f"Mean Squared Error (MSE): {mse}")
-print(f"R-squared (R²): {r2}")
-
 # 7. Save Predictions
+data = data.iloc[sequence_length - 1:]
 data['Predicted Temperature [C]'] = y_pred
 
 data.to_csv('validated_results.csv', index=False)
 print("Validation and predictions complete. Results saved to 'validated_results.csv'")
+
+# 8. Calculate and Print Performance Metrics
+mse = mean_squared_error(data['Temperature [C]'], y_pred)
+r2 = r2_score(data['Temperature [C]'], y_pred)
+
+print(f"Mean Squared Error (MSE): {mse}")
+print(f"R-squared (R²): {r2}")
