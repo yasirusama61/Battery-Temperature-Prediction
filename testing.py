@@ -101,3 +101,29 @@ plt.xlabel('Residual (Error)')
 plt.ylabel('Frequency')
 plt.title('Distribution of Residuals')
 plt.show()
+
+# Unit Tests
+class TestValidationScript(unittest.TestCase):
+    def test_feature_engineering(self):
+        # Test if feature engineering creates the correct columns
+        self.assertIn('Temp_Rolling_Mean', data.columns)
+        self.assertIn('Voltage_Rolling_Std', data.columns)
+        self.assertIn('Current_Rolling_Mean', data.columns)
+        self.assertIn('Temp_Lag_1', data.columns)
+        self.assertIn('Voltage_Lag_1', data.columns)
+        self.assertIn('Voltage_Current_Interaction', data.columns)
+        self.assertIn('Temperature_Current_Interaction', data.columns)
+        self.assertIn('Cumulative_Capacity', data.columns)
+        self.assertIn('Cumulative_WhAccu', data.columns)
+
+    def test_sequence_creation(self):
+        # Test if sequences are created correctly
+        self.assertEqual(X_test_seq.shape[1], sequence_length)
+        self.assertEqual(X_test_seq.shape[2], len(feature_columns))
+
+    def test_data_scaling(self):
+        # Test if data scaling maintains correct shape
+        self.assertEqual(X_test_scaled.shape, (X_test_seq.shape[0], sequence_length, len(feature_columns)))
+
+if __name__ == '__main__':
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)
