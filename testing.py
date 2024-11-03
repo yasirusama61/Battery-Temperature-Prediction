@@ -6,12 +6,12 @@
 import pandas as pd
 import numpy as np
 import joblib
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import tensorflow as tf
-from sklearn.metrics import mean_squared_error, r2_score
 
 # Load the saved model
-model = tf.keras.models.load_model('saved_model.h5')
+model = tf.keras.models.load_model('temperature_model.h5')
 
 # Load the scalers
 scaler_x = joblib.load('scaler_x.pkl')
@@ -39,38 +39,65 @@ data['Cumulative_Capacity'] = data['Capacity [Ah]'].cumsum()
 data['Cumulative_WhAccu'] = data['WhAccu [Wh]'].cumsum()
 data.dropna(inplace=True)
 
-# 4. Prepare Data for Model Testing
-feature_columns = [
-    'Voltage [V]', 'Current [A]', 'Temperature [C]', 'Temp_Rolling_Mean',
-    'Voltage_Rolling_Std', 'Current_Rolling_Mean', 'Temp_Lag_1', 'Voltage_Lag_1',
-    'Voltage_Current_Interaction', 'Temperature_Current_Interaction',
-    'Cumulative_Capacity', 'Cumulative_WhAccu'
-]
-
-X_test = data[feature_columns]
-X_test_scaled = scaler_x.transform(X_test)
-
-# 5. Create Sequences for LSTM Input
+# 4. Create Sequences for LSTM Model
 sequence_length = 10
-X_test_seq = []
-for i in range(len(X_test_scaled) - sequence_length + 1):
-    X_test_seq.append(X_test_scaled[i:i + sequence_length])
-X_test_seq = np.array(X_test_seq)
+sequences = []
+labels = []
 
-# 6. Model Prediction
-y_pred_scaled = model.predict(X_test_seq)
+for i in range(len(data) - sequence_length):
+    seq = data.iloc[i:i + sequence_length][[
+        'Voltage [V]', 'Current [A]', 'Temperature [C]', 'Temp_Rolling_Mean',
+        'Voltage_Rolling_Std', 'Current_Rolling_Mean', 'Temp_Lag_1', 'Voltage_Lag_1',
+        'Voltage_Current_Interaction', 'Temperature_Current_Interaction',
+        'Cumulative_Capacity', 'Cumulative_WhAccu']].values
+    label = data.iloc[i + sequence_length]['Temperature [C]']
+    sequences.append(seq)
+    labels.append(label)
+
+X_test = np.array(sequences)
+y_test = np.array(labels).reshape(-1, 1)
+
+# Scale the data
+X_test_scaled = scaler_x.transform(X_test.reshape(-1, X_test.shape[-1])).reshape(X_test.shape)
+
+# 5. Model Prediction
+y_pred_scaled = model.predict(X_test_scaled)
 y_pred = scaler_y.inverse_transform(y_pred_scaled)
 
-# 7. Save Predictions
-data = data.iloc[sequence_length - 1:]
+# 6. Save Predictions
+data = data.iloc[sequence_length:]
 data['Predicted Temperature [C]'] = y_pred
 
 data.to_csv('validated_results.csv', index=False)
 print("Validation and predictions complete. Results saved to 'validated_results.csv'")
 
-# 8. Calculate and Print Performance Metrics
-mse = mean_squared_error(data['Temperature [C]'], y_pred)
-r2 = r2_score(data['Temperature [C]'], y_pred)
+# 7. Plot Actual vs. Predicted Temperature
+plt.figure(figsize=(14, 6))
+plt.plot(data['Time [s]'], data['Temperature [C]'], label='Actual Temperature', color='blue')
+plt.plot(data['Time [s]'], data['Predicted Temperature [C]'], label='Predicted Temperature', color='orange')
+plt.xlabel('Time [s]')
+plt.ylabel('Temperature [C]')
+plt.title('Actual vs. Predicted Temperature')
+plt.legend()
+plt.show()
 
-print(f"Mean Squared Error (MSE): {mse}")
-print(f"R-squared (R²): {r2}")
+# 8. Residual Analysis
+residuals = data['Temperature [C]'] - data['Predicted Temperature [C]']
+
+# Plot residuals over time
+plt.figure(figsize=(14, 6))
+plt.plot(data['Time [s]'], residuals, marker='o', linestyle='', markersize=3, color='red', label='Residuals')
+plt.axhline(y=0, color='black', linestyle='--')
+plt.xlabel('Time [s]')
+plt.ylabel('Residual (Actual - Predicted)')
+plt.title('Residuals Over Time')
+plt.legend()
+plt.show()
+
+# Plot histogram of residuals
+plt.figure(figsize=(8, 6))
+plt.hist(residuals, bins=30, edgecolor='black')
+plt.xlabel('Residual (Error)')
+plt.ylabel('Frequency')
+plt.title('Distribution of Residuals')
+plt.show()
