@@ -1,5 +1,13 @@
 # 🌡️ **Battery Temperature Prediction**
 
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)](#)
+[![Machine Learning](https://img.shields.io/badge/Machine%20Learning-LSTM%20%7C%20SHAP-yellowgreen)](#)
+[![Battery Cell](https://img.shields.io/badge/Battery%20Cell-LG%2018650HG2-lightblue)](#)
+[![Safety Monitoring](https://img.shields.io/badge/Safety%20Monitoring-Enabled-red)](#)
+
+---
+
 This project focuses on predicting the temperature of an **LG 18650HG2** battery cell using parameters such as voltage, current, and cycle information. The primary objective is to develop a robust temperature prediction model to aid battery management systems in **anticipating overheating risks** and enhancing battery performance.
 
 ---
